@@ -21,6 +21,8 @@ DEDUP_ENTITIES = {
 # Entities that are transactional (never deduplicate)
 TRANSACTIONAL_ENTITIES = {
     'SERVICEORDERS',
+    'SERVICEORDERPACKAGES',  # Junction table: each SO-Package pair is unique
+    'SERVICEORDERPLOTS',     # Junction table: each SO-Plot pair is unique
 }
 
 

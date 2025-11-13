@@ -173,5 +173,47 @@ sheets:
             from: "Vendor Code"
     defaults: {}
 
+  # --- SERVICEORDERPACKAGES (Junction: SO -> Package) ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: SERVICEORDERPACKAGES
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-SERVICEORDERPACKAGES.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap: {}
+    lookups:
+      SERVICEORDER_ID:
+        entity: SERVICEORDERS
+        match:
+          - field: SO_NUMBER
+            from: "Service Orders > SO Number"
+      PACKAGE_ID:
+        entity: PACKAGES
+        match:
+          - field: NAME
+            from: "Package"
+    defaults: {}
+
+  # --- SERVICEORDERPLOTS (Junction: SO -> Plot) ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: SERVICEORDERPLOTS
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-SERVICEORDERPLOTS.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap: {}
+    lookups:
+      SERVICEORDER_ID:
+        entity: SERVICEORDERS
+        match:
+          - field: SO_NUMBER
+            from: "Service Orders > SO Number"
+      PLOT_ID:
+        entity: PLOTS
+        match:
+          - field: NAME
+            from: "Plot No"
+    defaults: {}
+
 ingestion:
   order: auto # use dependency order from schema.json
