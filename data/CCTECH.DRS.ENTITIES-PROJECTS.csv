@@ -1,0 +1,11 @@
+ID,SPV_ID,NAME,TYPE,CATEGORY,RFI_COUNT,NC_COUNT
+765d49bf-bbb0-48a3-91d5-1636cba9d615,3e4a5bde-c613-47ac-ab71-0ce6959c61bf,AGEL Hybrid Merchant_292 (Solar),Solar,merchant,5,3
+661fc43c-e164-41e0-939f-16c15d014fa9,792affe6-128a-446f-8444-71be117548cb,AGEL Hybrid Merchant_100 (Solar),Solar,merchant,5,3
+4d62dff1-31d3-45ef-9c6e-f3df7079de91,7e3d447c-bb8f-483e-8bd9-c8ad7e74a25a,AGEL Merchant,Solar,merchant,5,3
+ea933a22-ab19-4e0a-a415-c37fb5291a6a,3e4a5bde-c613-47ac-ab71-0ce6959c61bf,AGEL Hybrid Merchant (Solar),Solar,Merchant,0,0
+c89a45a4-ef2e-4986-a07a-905792cbe567,6e07eefa-e30f-414b-bdfb-97f56e47d791,Google Hybrid (Solar),Solar,Merchant,0,0
+e0c901b8-3037-4bc1-885e-654f92aa4d1d,ba29767b-ad32-4be7-a519-0d29adf63045,MLP T1 J&K,Solar,PPA,0,0
+c9ce1fed-043f-4f41-92df-856028a07580,ba29767b-ad32-4be7-a519-0d29adf63045,MLP T1 CG,Solar,PPA,0,0
+d2645c47-02aa-4fb5-8d19-5aabf00358c7,ba29767b-ad32-4be7-a519-0d29adf63045,MLP T1 TN,Solar,PPA,0,0
+a45b536a-057b-491e-9759-42430dd20112,ba29767b-ad32-4be7-a519-0d29adf63045,MLP T1 OR,Solar,PPA,0,0
+c8bba65d-3a18-4fd3-a698-393196d406f0,a1d446a8-6915-4856-bcbb-343cf3975048,MLP T3 AP,Solar,PPA,0,0

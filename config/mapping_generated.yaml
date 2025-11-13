@@ -1,0 +1,177 @@
+# Auto-generated mapping configuration
+# Single sheet contains multiple entity data - we'll process in dependency order
+
+version: 1
+workbook: "Khavda Phase-3 Solar_Projects and SO Data (1).xlsx"
+mode: append-only
+
+# The single sheet contains project/service order data
+# We extract different entities from the same sheet by mapping relevant columns
+
+sheets:
+  # --- CLUSTERS ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: CLUSTERS
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-CLUSTERS.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap:
+      "Cluster": NAME
+    defaults: {}
+
+  # --- LOCATIONS ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: LOCATIONS
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-LOCATIONS.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap:
+      "Location": NAME
+    lookups:
+      CLUSTER_ID:
+        entity: CLUSTERS
+        match:
+          - field: NAME
+            from: "Cluster"
+    defaults: {}
+
+  # --- PACKAGES ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: PACKAGES
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-PACKAGES.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap:
+      "Package": NAME
+    defaults: {}
+
+  # --- PLOTS ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: PLOTS
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-PLOTS.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap:
+      "Plot No": NAME
+    lookups:
+      LOCATION_ID:
+        entity: LOCATIONS
+        match:
+          - field: NAME
+            from: "Location"
+    defaults: {}
+
+  # --- SPVS ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: SPVS
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-SPVS.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap:
+      "SPV": NAME
+    defaults: {}
+
+  # --- PROJECTS ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: PROJECTS
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-PROJECTS.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap:
+      "Project": NAME
+      "Project Type": TYPE
+      "Project Category": CATEGORY
+    lookups:
+      SPV_ID:
+        entity: SPVS
+        match:
+          - field: NAME
+            from: "SPV"
+    defaults:
+      RFI_COUNT: 0
+      NC_COUNT: 0
+
+  # --- SOLARPROJECTATTRIBUTES (MMS Type & Capacity) ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: SOLARPROJECTATTRIBUTES
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-SOLARPROJECTATTRIBUTES.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap:
+      "MMS Type": MMS_TYPE
+      "Capacity\n(MWac)": CAPACITY
+    lookups:
+      PROJECT_ID:
+        entity: PROJECTS
+        match:
+          - field: NAME
+            from: "Project"
+    defaults: {}
+
+  # --- PROJECTDEFINITIONS ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: PROJECTDEFINITIONS
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-PROJECTDEFINITIONS.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap:
+      "Project Definition Code > SPV": CODE
+    lookups:
+      PROJECT_ID:
+        entity: PROJECTS
+        match:
+          - field: NAME
+            from: "Project"
+    defaults: {}
+
+  # --- VENDORS ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: VENDORS
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-VENDORS.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap:
+      "Vendor Code": CODE
+      "Vendor Name": NAME
+    defaults: {}
+
+  # --- SERVICEORDERS ---
+  - sheet: "Khavda-PhIII-Solar-SO Mapping"
+    entity: SERVICEORDERS
+    csvFile: C:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\data\CCTECH.DRS.ENTITIES-SERVICEORDERS.csv
+    id:
+      column: ID
+      uuidPolicy: generate_if_blank
+    columnMap:
+      "Service Orders > SO Number": SO_NUMBER
+      "Package": HEADER_TEXT
+    lookups:
+      PROJECT_ID:
+        entity: PROJECTS
+        match:
+          - field: NAME
+            from: "Project"
+      PROJECT_DEFINITION_ID:
+        entity: PROJECTDEFINITIONS
+        match:
+          - field: CODE
+            from: "Project Definition Code > SPV"
+      VENDOR_ID:
+        entity: VENDORS
+        optional: true
+        match:
+          - field: CODE
+            from: "Vendor Code"
+    defaults: {}
+
+ingestion:
+  order: auto # use dependency order from schema.json
