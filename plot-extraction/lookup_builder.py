@@ -14,6 +14,13 @@ from pathlib import Path
 from typing import Dict, Set, Tuple, Optional
 from dataclasses import dataclass
 
+# ASCII-safe print wrapper to avoid UnicodeEncodeError on Windows consoles
+import builtins as _b
+def _safe_print(*args, **kwargs):
+    safe_args = [str(a).encode('ascii','ignore').decode() for a in args]
+    return _b.print(*safe_args, **kwargs)
+print = _safe_print
+
 
 @dataclass
 class PlotInfo:

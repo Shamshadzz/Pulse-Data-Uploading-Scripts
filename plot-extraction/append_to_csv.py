@@ -15,6 +15,13 @@ from datetime import datetime
 from typing import List, Dict
 from collections import defaultdict, Counter
 
+# ASCII-safe print wrapper (strip emojis) for Windows console encoding
+import builtins as _b
+def _safe_print(*args, **kwargs):
+    safe_args = [str(a).encode('ascii','ignore').decode() for a in args]
+    return _b.print(*safe_args, **kwargs)
+print = _safe_print
+
 
 def create_backup(csv_path: Path) -> Path:
     """

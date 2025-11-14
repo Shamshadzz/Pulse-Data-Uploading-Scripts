@@ -12,9 +12,17 @@ Date: November 14, 2025
 import csv
 import uuid
 from pathlib import Path
-from typing import List, Dict, Optional, Set, Tuple
-from dataclasses import dataclass, asdict
+from typing import List, Dict, Optional, Tuple
+from dataclasses import dataclass
 import openpyxl
+import argparse
+
+# Ensure all printed output is ASCII-only to avoid Windows cp1252 encoding errors
+import builtins as _b
+def _safe_print(*args, **kwargs):
+    safe_args = [str(a).encode('ascii', 'ignore').decode() for a in args]
+    return _b.print(*safe_args, **kwargs)
+print = _safe_print
 
 from transform_logic import (
     folder_to_plot_name,
@@ -81,14 +89,20 @@ class ExtractionStats:
 
 
 class DesignElementExtractor:
-    """Extracts design elements from Excel files."""
+    """Extracts design elements from Excel files.
+
+    If allow_name_duplicates is True, TABLE and INVERTER elements are always
+    created even if a prior element with same (PROJECT_ID, NAME, TYPE) exists
+    either in the existing CSV or this extraction session.
+    """
     
-    def __init__(self, lookups: LookupDictionaries):
+    def __init__(self, lookups: LookupDictionaries, allow_name_duplicates: bool = False):
         self.lookups = lookups
+        self.allow_name_duplicates = allow_name_duplicates
         self.stats = ExtractionStats()
         self.new_elements: List[NewDesignElement] = []
         
-        # Track created elements in this session (to avoid duplicates within extraction)
+        # Track created elements in this session (still used for PLOT/BLOCK reuse)
         self.session_elements: Dict[Tuple[str, str, str], NewDesignElement] = {}
     
     def _create_element(
@@ -110,14 +124,15 @@ class DesignElementExtractor:
         Returns:
             NewDesignElement if created, None if duplicate
         """
-        # Check if element already exists in CSV
-        if self.lookups.element_exists(project_id, name, element_type):
-            return None
-        
-        # Check if element was created in this session
-        key = (project_id.lower(), name.upper(), element_type.upper())
-        if key in self.session_elements:
-            return self.session_elements[key]
+        # For TABLE/INVERTER when duplicates allowed, skip existence checks
+        if not (self.allow_name_duplicates and element_type in ("TABLE", "INVERTER")):
+            # Check if element already exists in CSV
+            if self.lookups.element_exists(project_id, name, element_type):
+                return None
+            # Check if element was created in this session
+            key = (project_id.lower(), name.upper(), element_type.upper())
+            if key in self.session_elements:
+                return self.session_elements[key]
         
         # Create new element
         element = NewDesignElement(
@@ -128,7 +143,8 @@ class DesignElementExtractor:
             parent_id=parent_id
         )
         
-        # Track in session
+        # Track in session (still track even if duplicates allowed; only PLOT/BLOCK logic relies on it)
+        key = (project_id.lower(), name.upper(), element_type.upper())
         self.session_elements[key] = element
         self.new_elements.append(element)
         
@@ -151,13 +167,11 @@ class DesignElementExtractor:
         """
         self.stats.plots_processed += 1
         
-        # Check existing
+        # Always dedupe PLOTs regardless of duplicate flag
         existing = self.lookups.get_existing_element(project_id, plot_name, "PLOT")
         if existing:
             self.stats.plots_skipped += 1
             return existing.id, False
-        
-        # Check session
         key = (project_id.lower(), plot_name.upper(), "PLOT")
         if key in self.session_elements:
             return self.session_elements[key].id, False
@@ -189,13 +203,11 @@ class DesignElementExtractor:
         """
         self.stats.blocks_processed += 1
         
-        # Check existing
+        # Always dedupe BLOCKs regardless of duplicate flag
         existing = self.lookups.get_existing_element(project_id, block_name, "BLOCK")
         if existing:
             self.stats.blocks_skipped += 1
             return existing.id, False
-        
-        # Check session
         key = (project_id.lower(), block_name.upper(), "BLOCK")
         if key in self.session_elements:
             return self.session_elements[key].id, False
@@ -235,22 +247,22 @@ class DesignElementExtractor:
         else:
             self.stats.inverters_extracted += 1
         
-        # Check existing
-        if self.lookups.element_exists(project_id, name, element_type):
-            if element_type == "TABLE":
-                self.stats.tables_skipped += 1
-            else:
-                self.stats.inverters_skipped += 1
-            return False
-        
-        # Check session
-        key = (project_id.lower(), name.upper(), element_type.upper())
-        if key in self.session_elements:
-            if element_type == "TABLE":
-                self.stats.tables_skipped += 1
-            else:
-                self.stats.inverters_skipped += 1
-            return False
+        if not (self.allow_name_duplicates and element_type in ("TABLE", "INVERTER")):
+            # Check existing
+            if self.lookups.element_exists(project_id, name, element_type):
+                if element_type == "TABLE":
+                    self.stats.tables_skipped += 1
+                else:
+                    self.stats.inverters_skipped += 1
+                return False
+            # Check session
+            key = (project_id.lower(), name.upper(), element_type.upper())
+            if key in self.session_elements:
+                if element_type == "TABLE":
+                    self.stats.tables_skipped += 1
+                else:
+                    self.stats.inverters_skipped += 1
+                return False
         
         # Create new element
         element = self._create_element(
@@ -470,12 +482,17 @@ class DesignElementExtractor:
 
 def main():
     """Main extraction function."""
-    
+    parser = argparse.ArgumentParser(description="Extract design elements from drawing_data Excel files.")
+    parser.add_argument("--allow-name-duplicates", action="store_true", help="Allow duplicate TABLE/INVERTER names (always create new).")
+    parser.add_argument("--drawing-data-path", default=None, help="Override path to drawing_data folder.")
+    parser.add_argument("--output", default=None, help="Override output CSV path for new elements.")
+    args = parser.parse_args()
+
     # Define paths
     base_path = Path(r"c:\Users\Shamshad choudhary\Documents\Pulse-Data-Uploading-Scripts\plot-extraction")
     data_path = base_path / "data"
-    drawing_data_path = base_path / "drawing_data"
-    
+    drawing_data_path = Path(args.drawing_data_path) if args.drawing_data_path else (base_path / "drawing_data")
+
     # Build lookup dictionaries
     print("🔄 Loading lookup dictionaries...")
     lookups = build_lookup_dictionaries(
@@ -484,35 +501,36 @@ def main():
         str(data_path / "CCTECH.DRS.ENTITIES-DESIGNELEMENTS.csv")
     )
     print("   ✅ Lookups loaded!\n")
-    
+    if args.allow_name_duplicates:
+        print("🔁 Duplicate TABLE/INVERTER names will be allowed (no deduplication).\n")
+
     # Create extractor
-    extractor = DesignElementExtractor(lookups)
-    
+    extractor = DesignElementExtractor(lookups, allow_name_duplicates=args.allow_name_duplicates)
+
     # Extract all elements
     success = extractor.extract_all(drawing_data_path)
-    
+
     # Print summary
     extractor.print_summary()
-    
+
     # Save results
     if extractor.new_elements:
-        output_file = base_path / "output" / "new_design_elements.csv"
+        output_file = Path(args.output) if args.output else (base_path / "output" / "new_design_elements.csv")
         output_file.parent.mkdir(exist_ok=True)
-        
+
         print(f"\n💾 Saving {len(extractor.new_elements)} new elements to: {output_file.name}")
-        
+
         with open(output_file, 'w', newline='', encoding='utf-8') as f:
             fieldnames = ['ID', 'PROJECT_ID', 'NAME', 'TYPE', 'PARENT_ID']
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
-            
             for element in extractor.new_elements:
                 writer.writerow(element.to_dict())
-        
+
         print(f"   ✅ Saved to: {output_file}")
     else:
         print("\n⚠️  No new elements to save (all elements already exist)")
-    
+
     print("\n" + "="*80)
     if success and not extractor.stats.errors:
         print("✅ EXTRACTION COMPLETED SUCCESSFULLY!")

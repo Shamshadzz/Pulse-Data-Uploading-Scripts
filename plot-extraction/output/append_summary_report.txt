@@ -2,79 +2,107 @@
 APPEND SUMMARY REPORT
 ================================================================================
 
-Generated: 2025-11-14 12:51:00
+Generated: 2025-11-14 15:13:17
 
 ================================================================================
 OVERALL STATISTICS
 ================================================================================
 
-Total elements appended: 3,631
+Total elements appended: 32,508
 
 Breakdown by type:
    PLOTs:     4
    BLOCKs:    61
-   TABLEs:    3,374
-   INVERTERs: 192
+   TABLEs:    29,613
+   INVERTERs: 2,830
 
 ================================================================================
 BREAKDOWN BY PROJECT/PLOT
 ================================================================================
 
 📊 A-16d (PROJECT_ID: a45b536a-057b-491e-9759-42430dd20112)
-   Total elements: 1,150
-   PLOTs: 1, BLOCKs: 27, TABLEs: 1074, INVERTERs: 48
+   Total elements: 14,433
+   PLOTs: 1, BLOCKs: 27, TABLEs: 13149, INVERTERs: 1256
 
    Breakdown by BLOCK:
       BL01: 541 elements (TABLEs: 494, INVERTERs: 47)
-      BL02: 10 elements (TABLEs: 10, INVERTERs: 0)
-      BL03: 72 elements (TABLEs: 72, INVERTERs: 0)
-      BL04: 150 elements (TABLEs: 150, INVERTERs: 0)
-      BL05: 52 elements (TABLEs: 52, INVERTERs: 0)
-      BL07: 61 elements (TABLEs: 61, INVERTERs: 0)
-      BL09: 45 elements (TABLEs: 44, INVERTERs: 1)
-      BL10: 3 elements (TABLEs: 3, INVERTERs: 0)
-      BL12: 65 elements (TABLEs: 65, INVERTERs: 0)
-      BL15: 17 elements (TABLEs: 17, INVERTERs: 0)
-      BL16: 2 elements (TABLEs: 2, INVERTERs: 0)
-      BL17: 4 elements (TABLEs: 4, INVERTERs: 0)
-      BL24: 92 elements (TABLEs: 92, INVERTERs: 0)
-      BL27: 8 elements (TABLEs: 8, INVERTERs: 0)
+      BL02: 345 elements (TABLEs: 315, INVERTERs: 30)
+      BL03: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL04: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL05: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL06: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL07: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL08: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL09: 542 elements (TABLEs: 494, INVERTERs: 48)
+      BL10: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL11: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL12: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL13: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL14: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL15: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL16: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL17: 542 elements (TABLEs: 494, INVERTERs: 48)
+      BL18: 542 elements (TABLEs: 494, INVERTERs: 48)
+      BL19: 542 elements (TABLEs: 494, INVERTERs: 48)
+      BL20: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL21: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL22: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL23: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL24: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL25: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL26: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL27: 540 elements (TABLEs: 493, INVERTERs: 47)
 
 📊 A-16b (PROJECT_ID: c9ce1fed-043f-4f41-92df-856028a07580)
-   Total elements: 962
-   PLOTs: 1, BLOCKs: 16, TABLEs: 897, INVERTERs: 48
+   Total elements: 8,669
+   PLOTs: 1, BLOCKs: 16, TABLEs: 7897, INVERTERs: 755
 
    Breakdown by BLOCK:
       BL01: 542 elements (TABLEs: 494, INVERTERs: 48)
-      BL02: 119 elements (TABLEs: 119, INVERTERs: 0)
-      BL04: 159 elements (TABLEs: 159, INVERTERs: 0)
-      BL06: 15 elements (TABLEs: 15, INVERTERs: 0)
-      BL08: 23 elements (TABLEs: 23, INVERTERs: 0)
-      BL12: 14 elements (TABLEs: 14, INVERTERs: 0)
-      BL14: 10 elements (TABLEs: 10, INVERTERs: 0)
-      BL16: 63 elements (TABLEs: 63, INVERTERs: 0)
+      BL02: 542 elements (TABLEs: 494, INVERTERs: 48)
+      BL03: 542 elements (TABLEs: 494, INVERTERs: 48)
+      BL04: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL05: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL06: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL07: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL08: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL09: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL10: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL11: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL12: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL13: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL14: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL15: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL16: 541 elements (TABLEs: 494, INVERTERs: 47)
 
 📊 A-16c (PROJECT_ID: d2645c47-02aa-4fb5-8d19-5aabf00358c7)
-   Total elements: 972
-   PLOTs: 1, BLOCKs: 14, TABLEs: 909, INVERTERs: 48
+   Total elements: 7,238
+   PLOTs: 1, BLOCKs: 14, TABLEs: 6593, INVERTERs: 630
 
    Breakdown by BLOCK:
       BL01: 541 elements (TABLEs: 494, INVERTERs: 47)
-      BL02: 95 elements (TABLEs: 95, INVERTERs: 0)
-      BL03: 74 elements (TABLEs: 74, INVERTERs: 0)
-      BL04: 198 elements (TABLEs: 198, INVERTERs: 0)
-      BL08: 1 elements (TABLEs: 0, INVERTERs: 1)
-      BL10: 8 elements (TABLEs: 8, INVERTERs: 0)
-      BL12: 38 elements (TABLEs: 38, INVERTERs: 0)
-      BL13: 2 elements (TABLEs: 2, INVERTERs: 0)
+      BL02: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL03: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL04: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL05: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL06: 194 elements (TABLEs: 177, INVERTERs: 17)
+      BL07: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL08: 542 elements (TABLEs: 494, INVERTERs: 48)
+      BL09: 542 elements (TABLEs: 494, INVERTERs: 48)
+      BL10: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL11: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL12: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL13: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL14: 540 elements (TABLEs: 493, INVERTERs: 47)
 
 📊 A-16a (PROJECT_ID: e0c901b8-3037-4bc1-885e-654f92aa4d1d)
-   Total elements: 547
-   PLOTs: 1, BLOCKs: 4, TABLEs: 494, INVERTERs: 48
+   Total elements: 2,168
+   PLOTs: 1, BLOCKs: 4, TABLEs: 1974, INVERTERs: 189
 
    Breakdown by BLOCK:
-      BL01: 1 elements (TABLEs: 1, INVERTERs: 0)
-      BL03: 1 elements (TABLEs: 0, INVERTERs: 1)
+      BL01: 541 elements (TABLEs: 494, INVERTERs: 47)
+      BL02: 540 elements (TABLEs: 493, INVERTERs: 47)
+      BL03: 542 elements (TABLEs: 494, INVERTERs: 48)
       BL04: 540 elements (TABLEs: 493, INVERTERs: 47)
 
 ================================================================================
